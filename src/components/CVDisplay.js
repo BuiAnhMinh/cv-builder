@@ -4,6 +4,9 @@ import EducationalExperience from './EducationalExperience';
 import PracticalExperience from './PracticalExperience';
 
 
+
+
+
 const CVDisplay = ({ generalInfo, educationList, experienceList }) => (
   <div className="cv-display">
     <h1>Generated CV</h1>

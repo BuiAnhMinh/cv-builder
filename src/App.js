@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import GeneralInfo from './GeneralInfo';
-import EducationalExperience from './EducationalExperience';
-import PracticalExperience from './PracticalExperience';
-import CVDisplay from './CVDisplay';
+import GeneralInfo from './components/GeneralInfo';
+import EducationalExperience from './components/EducationalExperience';
+import PracticalExperience from './components/PracticalExperience';
+import CVDisplay from './components/CVDisplay';
+
 
 
 const App = () => {
