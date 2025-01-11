@@ -1,30 +1,90 @@
 import React, { useState } from "react";
 
 const GeneralInfo = () => {
-    const [info, setInfo] = useState({name: '', email: '', phone: '', summary: ''});
+    const [info, setInfo] = useState({ name: "", email: "", phone: "", summary: "" });
     const [isEditing, setIsEditing] = useState(true);
+    const [errors, setErrors] = useState({});
 
-    const handleInfoChange = (e) =>{
-        const {name, value} = e.target;
-        setInfo({...info, [name]: value});
+    const validateInputs = () => {
+        const newErrors = {};
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^[0-9]{10}$/;
+
+        if (!info.name) newErrors.name = "Name is required!";
+        if (!info.email) {
+            newErrors.email = "Email is required!";
+        } else if (!emailRegex.test(info.email)) {
+            newErrors.email = "Invalid email format!";
+        }
+        if (!info.phone) {
+            newErrors.phone = "Phone is required!";
+        } else if (!phoneRegex.test(info.phone)) {
+            newErrors.phone = "Invalid phone number (10 digits required)!";
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = () => {
+        if (validateInputs()) {
+            setIsEditing(false);
+        }
+    };
+
+    const handleInfoChange = (e) => {
+        const { name, value } = e.target;
+        setInfo({ ...info, [name]: value });
     };
 
     return (
         <div className="general-info">
             {isEditing ? (
                 <form>
-                    <input name ="name" value = {info.name} onChange={handleInfoChange} placeholder="Name"></input>
-                    <input name ="email" value= {info.email} onChange={handleInfoChange} placeholder="Email"></input>
-                    <input name ="phone" value={info.phone} onChange={handleInfoChange} placeholder="Phone"></input>
-                    <textarea name ="summary" value={info.summary} onChange={handleInfoChange} placeholder="Summary"/>
-                    <button type="button" onClick={() => setIsEditing(false)}>Submit</button>
+                    <div>
+                        <input
+                            name="name"
+                            value={info.name}
+                            onChange={handleInfoChange}
+                            placeholder="Name"
+                        />
+                        {errors.name && <span className="error">{errors.name}</span>}
+                    </div>
+                    <div>
+                        <input
+                            name="email"
+                            value={info.email}
+                            onChange={handleInfoChange}
+                            placeholder="Email"
+                        />
+                        {errors.email && <span className="error">{errors.email}</span>}
+                    </div>
+                    <div>
+                        <input
+                            name="phone"
+                            value={info.phone}
+                            onChange={handleInfoChange}
+                            placeholder="Phone"
+                        />
+                        {errors.phone && <span className="error">{errors.phone}</span>}
+                    </div>
+                    <div>
+                        <textarea
+                            name="summary"
+                            value={info.summary}
+                            onChange={handleInfoChange}
+                            placeholder="Summary"
+                        />
+                    </div>
+                    <button type="button" onClick={handleSubmit}>
+                        Submit
+                    </button>
                 </form>
             ) : (
                 <div>
-                    <p>Name : {info.name}</p>
-                    <p>Email : {info.email}</p>
-                    <p>Phone: {info.phone}</p>
-                    <p>Summary : {info.summary}</p>
+                    <p><strong>Name:</strong> {info.name}</p>
+                    <p><strong>Email:</strong> {info.email}</p>
+                    <p><strong>Phone:</strong> {info.phone}</p>
+                    <p><strong>Summary:</strong> {info.summary}</p>
                     <button onClick={() => setIsEditing(true)}>Edit</button>
                 </div>
             )}
