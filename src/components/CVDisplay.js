@@ -2,14 +2,13 @@ import React from 'react';
 import GeneralInfo from './GeneralInfo';
 import EducationalExperience from './EducationalExperience';
 import PracticalExperience from './PracticalExperience';
-
-
+import '../styles/styles.css';
 
 
 
 const CVDisplay = ({ generalInfo, educationList, experienceList }) => (
   <div className="cv-display">
-    <h1>Generated CV</h1>
+    <h1>{generalInfo.name}'s CV</h1>
     <section className="general-info-display">
       <h2>General Information</h2>
       <p><strong>Name:</strong> {generalInfo.name}</p>
@@ -24,7 +23,8 @@ const CVDisplay = ({ generalInfo, educationList, experienceList }) => (
           <div key={index}>
             <p><strong>School:</strong> {edu.school}</p>
             <p><strong>Title of Study:</strong> {edu.studyTitle}</p>
-            <p><strong>Date:</strong> {edu.studyDate}</p>
+            <p><strong>From Date:</strong> {edu.fromDate}</p>
+            <p><strong>To Date:</strong> {edu.toDate}</p>
           </div>
         ))
       ) : (

@@ -1,20 +1,21 @@
 import React, { useState } from "react";
+import '../styles/styles.css';
 
-const PracticalExperience = () => {
-    const [experienceList, setExperienceList] = useState([]);
+const PracticalExperience = ({ setExperienceList }) => {
+    const [experienceList, setLocalExperienceList] = useState([]);
     const [experience, setExperience] = useState({
-        company: '',
-        position: '',
-        responsibilities: '',
-        fromDate: '',
-        toDate: '',
+        company: "",
+        position: "",
+        responsibilities: "",
+        fromDate: "",
+        toDate: "",
     });
-    const [isEditing, setIsEditing] = useState(true);
     const [errors, setErrors] = useState({});
+    const [addedCompanies, setAddedCompanies] = useState([]); // Track all added companies
 
     const validateInputs = () => {
         const newErrors = {};
-        const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // ISO date format YYYY-MM-DD
+        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
         if (!experience.company) newErrors.company = "Company name is required!";
         if (!experience.position) newErrors.position = "Position is required!";
@@ -29,6 +30,9 @@ const PracticalExperience = () => {
         } else if (!dateRegex.test(experience.toDate)) {
             newErrors.toDate = "End date must be in YYYY-MM-DD format!";
         }
+        if (experience.fromDate && experience.toDate && experience.fromDate > experience.toDate) {
+            newErrors.toDate = "End date must be after the start date!";
+        }
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -40,13 +44,16 @@ const PracticalExperience = () => {
 
     const handleAddExperience = () => {
         if (validateInputs()) {
-            setExperienceList([...experienceList, experience]);
+            const updatedExperienceList = [...experienceList, experience];
+            setLocalExperienceList(updatedExperienceList);
+            setExperienceList(updatedExperienceList); // Update parent state
+            setAddedCompanies([...addedCompanies, experience.company]); // Add to company list
             setExperience({
-                company: '',
-                position: '',
-                responsibilities: '',
-                fromDate: '',
-                toDate: '',
+                company: "",
+                position: "",
+                responsibilities: "",
+                fromDate: "",
+                toDate: "",
             }); // Reset fields
             setErrors({});
         }
@@ -54,80 +61,65 @@ const PracticalExperience = () => {
 
     return (
         <div className="practical-experience">
-            {isEditing ? (
-                <form>
-                    <div>
-                        <input
-                            name="company"
-                            value={experience.company}
-                            onChange={handlePracticalChange}
-                            placeholder="Company"
-                        />
-                        {errors.company && <span className="error">{errors.company}</span>}
-                    </div>
-                    <div>
-                        <input
-                            name="position"
-                            value={experience.position}
-                            onChange={handlePracticalChange}
-                            placeholder="Position"
-                        />
-                        {errors.position && <span className="error">{errors.position}</span>}
-                    </div>
-                    <div>
-                        <textarea
-                            name="responsibilities"
-                            value={experience.responsibilities}
-                            onChange={handlePracticalChange}
-                            placeholder="Responsibilities"
-                        />
-                        {errors.responsibilities && <span className="error">{errors.responsibilities}</span>}
-                    </div>
-                    <div>
-                        <input
-                            name="fromDate"
-                            type="date"
-                            value={experience.fromDate}
-                            onChange={handlePracticalChange}
-                            placeholder="From Date"
-                        />
-                        {errors.fromDate && <span className="error">{errors.fromDate}</span>}
-                    </div>
-                    <div>
-                        <input
-                            name="toDate"
-                            type="date"
-                            value={experience.toDate}
-                            onChange={handlePracticalChange}
-                            placeholder="To Date"
-                        />
-                        {errors.toDate && <span className="error">{errors.toDate}</span>}
-                    </div>
-                    <button type="button" onClick={handleAddExperience}>
-                        Add
-                    </button>
-                    <button type="button" onClick={() => setIsEditing(false)}>
-                        Done
-                    </button>
-                </form>
-            ) : (
+            <h2>Practical Experience</h2>
+            <h3>Added Companies</h3>
+            <ul>
+                {addedCompanies.map((company, index) => (
+                    <li key={index}>{company}</li>
+                ))}
+            </ul>
+            <form>
                 <div>
-                    {experienceList.length > 0 ? (
-                        experienceList.map((entry, index) => (
-                            <div key={index}>
-                                <p><strong>Company:</strong> {entry.company}</p>
-                                <p><strong>Position:</strong> {entry.position}</p>
-                                <p><strong>Responsibilities:</strong> {entry.responsibilities}</p>
-                                <p><strong>From:</strong> {entry.fromDate}</p>
-                                <p><strong>To:</strong> {entry.toDate}</p>
-                            </div>
-                        ))
-                    ) : (
-                        <p>No practical experience added yet.</p>
-                    )}
-                    <button onClick={() => setIsEditing(true)}>Edit</button>
+                    <input
+                        name="company"
+                        value={experience.company}
+                        onChange={handlePracticalChange}
+                        placeholder="Company"
+                    />
+                    {errors.company && <span className="error">{errors.company}</span>}
                 </div>
-            )}
+                <div>
+                    <input
+                        name="position"
+                        value={experience.position}
+                        onChange={handlePracticalChange}
+                        placeholder="Position"
+                    />
+                    {errors.position && <span className="error">{errors.position}</span>}
+                </div>
+                <div>
+                    <textarea
+                        name="responsibilities"
+                        value={experience.responsibilities}
+                        onChange={handlePracticalChange}
+                        placeholder="Responsibilities"
+                    />
+                    {errors.responsibilities && <span className="error">{errors.responsibilities}</span>}
+                </div>
+                <div>
+                    <label>From Date:</label>
+                    <input
+                        name="fromDate"
+                        type="date"
+                        value={experience.fromDate}
+                        onChange={handlePracticalChange}
+                    />
+                    {errors.fromDate && <span className="error">{errors.fromDate}</span>}
+                </div>
+                <div>
+                    <label>To Date:</label>
+                    <input
+                        name="toDate"
+                        type="date"
+                        value={experience.toDate}
+                        onChange={handlePracticalChange}
+                    />
+                    {errors.toDate && <span className="error">{errors.toDate}</span>}
+                </div>
+                <button type="button" onClick={handleAddExperience}>
+                    Add
+                </button>
+            </form>
         </div>
     );
 };

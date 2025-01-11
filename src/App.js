@@ -3,6 +3,7 @@ import GeneralInfo from './components/GeneralInfo';
 import EducationalExperience from './components/EducationalExperience';
 import PracticalExperience from './components/PracticalExperience';
 import CVDisplay from './components/CVDisplay';
+import './styles/styles.css';
 
 
 

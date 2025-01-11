@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import '../styles/styles.css';
 
-const GeneralInfo = () => {
+
+
+const GeneralInfo = ({ setGeneralInfo }) => {
     const [info, setInfo] = useState({ name: "", email: "", phone: "", summary: "" });
     const [isEditing, setIsEditing] = useState(true);
     const [errors, setErrors] = useState({});
@@ -28,6 +31,7 @@ const GeneralInfo = () => {
     const handleSubmit = () => {
         if (validateInputs()) {
             setIsEditing(false);
+            setGeneralInfo(info); // Update generalInfo in the parent component
         }
     };
 
@@ -76,7 +80,7 @@ const GeneralInfo = () => {
                         />
                     </div>
                     <button type="button" onClick={handleSubmit}>
-                        Submit
+                        Add
                     </button>
                 </form>
             ) : (

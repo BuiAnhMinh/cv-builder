@@ -1,0 +1,161 @@
+/* General reset */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f9;
+}
+
+/* App Container */
+.app {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Section Headers */
+.app h1 {
+    font-size: 2rem;
+    color: #222;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #444;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+/* General Info */
+.general-info,
+.educational-experience,
+.practical-experience {
+    margin-bottom: 30px;
+}
+
+.general-info input,
+.educational-experience input,
+.practical-experience input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: #5c67f2;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #4b55c8;
+}
+
+/* CV Display */
+.cv-display {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.cv-display h1 {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.cv-display section {
+    margin-bottom: 20px;
+}
+
+.cv-display section h2 {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+.cv-display p {
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+.cv-display strong {
+    font-weight: bold;
+}
+
+/* Error Messages */
+.error {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: -5px;
+    display: block;
+}
+
+/* Flexbox for Layout */
+section .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.flex-container > div {
+    flex: 1;
+    min-width: 150px;
+}
+
+/* Icons Styling */
+.icon {
+    color: #5c67f2;
+    margin-right: 5px;
+}
+
+/* Educational & Practical Experiences */
+.experience-list div,
+.education-list div {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+
+.experience-list p,
+.education-list p {
+    margin: 5px 0;
+}
+
+/* Submit All Button */
+.submit-all-btn {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    background: #5c67f2;
+    color: white;
+    padding: 15px;
+    font-size: 1.2rem;
+    text-align: center;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.submit-all-btn:hover {
+    background: #4b55c8;
+}
